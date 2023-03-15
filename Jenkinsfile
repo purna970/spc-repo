@@ -20,6 +20,12 @@ pipeline {
                                  onlyIfSuccessful: true
                 junit testResults: '**/surefire-reports/TEST-*.xml'
             }
+        } 
+        stage( 'merge to release branch' ) {
+            steps {
+                sh 'git checkout sprint_1_release'
+                sh 'git merge develop'
+            }
         }
     }
 } 
