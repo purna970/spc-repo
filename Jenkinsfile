@@ -1,3 +1,4 @@
+//poorna
 pipeline {
     agent { label 'ubuntu' } 
         triggers { pollSCM ('* * * * *') }
@@ -5,7 +6,7 @@ pipeline {
         stage('vcs') {
             steps {
                 git url: 'https://github.com/purna970/spc-repo.git',
-                    branch: 'develop'
+                    branch: 'sprint_1_release'
             }
         }
         stage('package') {
