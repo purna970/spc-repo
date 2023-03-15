@@ -1,0 +1,25 @@
+---
+- name: deploying spc
+  hosts: all
+  become: yes
+  vars: 
+    Build_file: '/home/jenkins/root/workspace/spc_dec_release/target/spring-petclinic-3.0.0-SNAPSHOT.jar'
+  tasks: 
+    - name: get jar file
+      ansible.builtin.copy:
+        src: "{{Build_file}}"
+        dest: "/opt/spring-petclinic-3.0.0-SNAPSHOT.jar"
+    - name: copy the spc.service
+      ansible.builtin.copy: 
+        src: spc.service
+        dest: /etc/systemd/system/spc.service
+    - name: service file
+      ansible.builtin.file:
+        path: /etc/systemd/system/spc.service
+        mode: '0644'
+        state: file
+    - name: enable and start spc.service
+      ansible.builtin.systemd:
+        name: spc.service
+        enabled: true
+        state: started 

@@ -1,6 +1,7 @@
 //poorna
 pipeline {
     agent { label 'ubuntu' }
+        triggers { pollSCM ('* 23 * * *') }
     stages {
         stage('vcs') {
             steps {
@@ -13,6 +14,26 @@ pipeline {
                 sh 'mvn package'
             }
         } 
-       
+        stage('post build') {
+            steps {
+                archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
+                                 onlyIfSuccessful: true
+                junit testResults: '**/surefire-reports/TEST-*.xml'
+                stash name: 'spc-jar',
+                    includes: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar'
+            }
+        }
+        stage('collects file') {
+            agent { label 'Ansible_node' }
+            steps {
+                unstash name: 'spc-jar'
+            }
+        }
+        stage('deployment stage') {
+            agent { label 'Ansible_node' }
+            steps {
+                sh 'ansible-playbook -i hosts spc.yml'
+            }
+        }
     }
 } 
