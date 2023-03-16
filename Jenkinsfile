@@ -23,8 +23,8 @@ pipeline {
         } 
         stage( 'merge to release branch' ) {
             steps {
-                sh 'git checkout sprint_1_release'
-                sh 'git merge develop'
+                sh 'git checkout develop'
+                sh 'git merge sprint_1_release'
             }
         }
     }
