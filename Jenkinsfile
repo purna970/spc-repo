@@ -24,7 +24,7 @@ pipeline {
             }
         }
         stage('collects file') {
-            agent { label 'Ansible_node' }
+            agent { label 'nsible' }
             steps {
                 unstash name: 'spc-jar'
             }
