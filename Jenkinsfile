@@ -33,7 +33,8 @@ pipeline {
             agent { label 'ansible' }
             steps {
                 sh 'ansible-playbook -i hosts spc.yaml'
+                sh 'sudo sysytemctl status spc.service'
             }
-        }
+        } 
     }
 } 
