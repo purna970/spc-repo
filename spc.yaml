@@ -8,11 +8,12 @@
     - name: get jar file
       ansible.builtin.copy:
         src: "{{Build_file}}"
-        dest: "/tmp/spring-petclinic-3.0.0-SNAPSHOT.jar"
+        dest: "/tmp/spring-petclinic-3.0.0-SNAPSHOT.jar" 
     - name: copy the spc.service
       ansible.builtin.copy: 
         src: spc.service
-        dest: /etc/systemd/system/spc.service
+        dest: /etc/systemd/system/spc.service 
+        remote_src: yes
     - name: service file
       ansible.builtin.file:
         path: /etc/systemd/system/spc.service
