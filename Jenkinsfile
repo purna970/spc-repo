@@ -1,7 +1,7 @@
 //poorna
 pipeline {
     agent { label 'ubuntu' }
-        triggers { pollSCM ('* 23 * * *') }
+        triggers { pollSCM ('* * * * *') }
     stages {
         stage('vcs') {
             steps {
