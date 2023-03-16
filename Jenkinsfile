@@ -32,7 +32,7 @@ pipeline {
         stage('deployment stage') {
             agent { label 'ansible' }
             steps {
-                sh 'ansible-playbook -i hosts spc.yml'
+                sh 'ansible-playbook -i hosts spc.yaml'
             }
         }
     }
