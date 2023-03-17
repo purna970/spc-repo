@@ -13,7 +13,6 @@
       ansible.builtin.copy: 
         src: spc.service
         dest: /etc/systemd/system/spc.service 
-        remote_src: yes
     - name: service file
       ansible.builtin.file:
         path: /etc/systemd/system/spc.service
